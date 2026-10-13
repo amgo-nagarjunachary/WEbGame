@@ -88,6 +88,30 @@ html,body{height:100%}body{display:block;min-height:0;overflow:hidden;background
 .box .lock{position:absolute;inset:0;z-index:7;background:#2b2f37d9;border-radius:8px 8px 10px 10px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:4px}
 .box .lock span{font-size:26px;line-height:1}
 .rv{font:inherit;font-weight:800;font-size:12px;background:#ffb703;border:0;border-bottom:3px solid #c98a00;border-radius:8px;padding:2px 8px;cursor:pointer;color:#3a2a00}
+body{background:radial-gradient(circle at 50% 40%,#12356f,#050f26)}
+.stage{background:#1346a8}
+.bg{background:radial-gradient(circle at 50% 6%,#6fdcff55,transparent 55%),linear-gradient(180deg,#1f78d9,#1346a8 55%,#0c2f7a)}
+.bg i{display:none}
+.bg::before{content:"";position:absolute;inset:-20px 0;animation:drift 9s ease-in-out infinite alternate;background:radial-gradient(circle at 20% 30%,#ffffff26 0 6px,transparent 7px),radial-gradient(circle at 82% 16%,#ffffff22 0 10px,transparent 11px),radial-gradient(circle at 72% 68%,#ffffff1c 0 14px,transparent 15px),radial-gradient(circle at 12% 78%,#ffffff1c 0 9px,transparent 10px),radial-gradient(circle at 46% 52%,#ffffff18 0 5px,transparent 6px),radial-gradient(circle at 90% 90%,#ffffff1a 0 8px,transparent 9px)}
+.bg::after{content:"";position:absolute;inset:0;background:linear-gradient(105deg,transparent 28%,#ffffff10 38%,transparent 48%,transparent 62%,#ffffff0c 70%,transparent 78%)}
+@keyframes drift{to{transform:translateY(-16px)}}
+.moves{border-color:#9ed6ff}.top button{border-color:#9ed6ff}.card{box-shadow:0 8px 0 #9ed6ff}
+.slots{background:#14408f99;border:2px solid #5fb6ff}.slot{background:#0f2f73;border:2px solid #3f8fe0}
+.shelf{height:170px}.boxrow{bottom:58px}.hook{top:-14px}
+.belt{top:110px;bottom:auto;left:-6px;right:-6px;height:18px;border-radius:6px;background:linear-gradient(#e6bb82,#c08a50);border:0;border-bottom:4px solid #8f6232;box-shadow:0 6px 8px #0005;animation:none}
+.box::before{content:"";position:absolute;left:-4px;right:-4px;top:-8px;height:14px;border-radius:8px;background:linear-gradient(#6fd6ff,#2a97e6);border:2px solid #1c78c2;z-index:5}
+.box .f1,.box .f2{display:none}
+.box .glass{border:3px solid #35b4f5;border-radius:14px;background:linear-gradient(180deg,#c8eeff88,#6cc6f066 60%,#3a9fe055);box-shadow:inset 0 0 14px #fff8,inset 0 -6px 10px #2d8fd0aa}
+.box .rimf{height:18px;background:linear-gradient(#f3d9a0,#e3bd7a);border:0;border-top:2px solid #d9b46d;border-radius:0 0 11px 11px;left:3px;right:3px;bottom:3px;z-index:1}
+.box .cover{background:linear-gradient(#aee6ff,#5ab9f0);border:3px solid #2a8fd8;border-radius:14px}
+.box .cover::after{content:"✓";left:0;top:0;bottom:0;width:auto;right:0;background:none;display:flex;align-items:center;justify-content:center;font-size:44px;color:#fff;text-shadow:0 2px 0 #1c78c2}
+.box.closed .cover{opacity:.92}
+.box .tag{top:-28px;border-color:#2a8fd8;color:#14407f}
+.box .lock{background:#7fb7d655;border-radius:14px}
+.rv.plus{width:44px;height:44px;border-radius:50%;font-size:34px;line-height:1;padding:0;background:linear-gradient(#7cf06a,#27b53a);border:3px solid #fff;color:#fff;box-shadow:0 3px 0 #1b8a2b,0 4px 8px #0004;display:flex;align-items:center;justify-content:center}
+.badge{position:absolute;left:50%;top:100px;transform:translateX(-50%);width:48px;height:48px;border-radius:50%;background:#fff;border:3px solid #1d7fd8;box-shadow:0 0 0 3px #4cb2ff66,0 3px 6px #0004;display:flex;flex-direction:column;align-items:center;justify-content:center;line-height:1;z-index:6}
+.badge::before,.badge::after{content:"";position:absolute;top:-12px;width:3px;height:14px;background:#bfe3f8}.badge::before{left:9px}.badge::after{right:9px}
+.badge .bi{font-size:20px}.badge .cnt{font-size:12px;color:#14407f;margin-top:1px}
 @media (prefers-reduced-motion:reduce){.box,.slot span{transition:none;animation:none}}
 </style></head><body>
 <div class="stage" id="stage"><div class="bg" id="bg"></div>
@@ -185,35 +209,35 @@ function spawnNext(){if(!reserve.length||over)return;const i=B.length,set=reserv
   $("board").appendChild(el);B.push({el,items:set,x:R+Math.random()*(W-2*R),y:-R*1.3,vx:(Math.random()-.5)*2,vy:2,alive:true})}
 const PARK=-260;
 const CATS={Animals:"🐶🐱🐰🐥🐢🐼🐧🐸🐮🐷",Food:"🍕🍔🌭🍩🍰🍦🌮🍟",Cars:"🚗🚕🚓🚌🚙🚚",Objects:"⚽🎧☕🎒🛋️🪴💡⏰",Gadgets:"💻📱🎮"};
-const CT={Animals:["🐶","🐱","🐰","🐥","🐢","🐼","🐧","🐸","🐮","🐷"],Food:["🍕","🍔","🌭","🍩","🍰","🍦","🌮","🍟"],Cars:["🚗","🚕","🚓","🚌","🚙","🚚"],Objects:["💻","📱","🎮","🎧","⌚","📷","🎒","💡","⏰","🛋️","🪴","☕","⚽"]};
-const ICON={Animals:"🐾",Food:"🍴",Cars:"🏁",Objects:"📦"};
+const CT={Animals:["🐶","🐱","🐰","🐥","🐢","🐼","🐧","🐸","🐮","🐷"],Food:["🍕","🍔","🌭","🍩","🍰","🍦","🌮","🍟"],Vehicles:["🚗","🚕","🚓","🚌","🚙","🚚"],Objects:["💻","📱","🎮","🎧","⌚","📷","🎒","💡","⏰","🛋️","🪴","⚽"]};
+const ICON={Animals:"🐾",Food:"🍴",Vehicles:"🏁",Objects:"📦"};
 const pick=c=>shuffle(CT[c].slice()).slice(0,3);
 const catOf=e=>Object.keys(CT).find(k=>CT[k].includes(e));
 const sleep=ms=>new Promise(r=>setTimeout(r,ms));
 const mv=(el,a,b,ms)=>{const an=el.animate([{transform:a},{transform:b}],{duration:ms,easing:"ease-in-out"});el.style.transform=b;return an.finished.catch(()=>{})};
 function crane(x0,y0,x1,y1,ms){cx=x1;cy=y1;return Promise.all([mv($("trol"),`translateX(${x0}px)`,`translateX(${x1}px)`,ms),mv($("hook"),`translate(${x0}px,${y0}px)`,`translate(${x1}px,${y1}px)`,ms)])}
-function boxHTML(t){return `<div class="box"><i class="f1"></i><i class="f2"></i><div class="glass"></div><div class="cells">${[0,1,2].map(k=>k<t.it.length?`<span class="c on">${t.it[k]}</span>`:`<span class="c">${ICON[t.cat]||""}</span>`).join("")}</div><div class="rimf"></div><div class="cover"></div>${t.locked?"":`<div class="tag">${t.cat}</div>`}${t.locked?`<div class="lock"><span>🔒</span><small style="font-weight:800;font-size:11px;color:#fff">Extra box</small><button class="rv">▶ Unlock</button></div>`:""}</div>`}
+function boxHTML(t){return `<div class="box"><i class="f1"></i><i class="f2"></i><div class="glass"></div><div class="cells">${[0,1,2].map(k=>k<t.it.length?`<span class="c on">${t.it[k]}</span>`:`<span class="c">${ICON[t.cat]||""}</span>`).join("")}</div><div class="rimf"></div><div class="cover"></div>${t.locked?"":`<div class="tag">${t.cat}</div><div class="badge"><span class="bi">${ICON[t.cat]}</span><b class="cnt">${t.it.length}/${NEED}</b></div>`}${t.locked?`<div class="lock"><button class="rv plus">+</button></div>`:""}</div>`}
 function renderBoxes(bi){const rows=$("boxrow").children;
   targets.forEach((t,i)=>{const w=rows[i];if(!w||w._busy)return;
     if(w._t!==t||w._l!==!!(t&&t.locked)){w._t=t;w._l=!!(t&&t.locked);w.innerHTML=t?boxHTML(t):""}
-    else if(t){w.querySelectorAll(".c").forEach((c,k)=>{const on=k<t.it.length;c.classList.toggle("on",on);c.textContent=on?t.it[k]:ICON[t.cat]||""})}
+    else if(t){w.querySelectorAll(".c").forEach((c,k)=>{const on=k<t.it.length;c.classList.toggle("on",on);c.textContent=on?t.it[k]:ICON[t.cat]||""});const q=w.querySelector(".cnt");if(q)q.textContent=t.it.length+"/"+NEED}
     if(i===bi&&t){const b=w.firstChild;b.classList.add("bump");setTimeout(()=>b.classList.remove("bump"),250)}})}
 async function runCrane(){
   const g=gid,claw=$("claw");craneBusy=true;const S=async p=>{await p;if(g!==gid)throw 0};
   try{while(jobs.length){
     const i=jobs.shift(),w=$("boxrow").children[i],box=w.firstChild,x=w.offsetLeft+w.offsetWidth/2,out=SW+90,UP=`translate(0px,${PARK-30}px) scale(1.12)`,L="translate(0px,-24px) scale(1.12)",D="translate(0px,0px) scale(1)";
     w._busy=true;w.style.zIndex=6;box.classList.add("closed");
-    await S(sleep(320));
+    await S(sleep(120));
     await S(crane(x,PARK,x,PARK,1));
-    claw.classList.add("open");await S(crane(x,PARK,x,30,650));claw.classList.remove("open");await S(sleep(140));
-    await S(Promise.all([mv(box,D,UP,800),crane(x,30,x,PARK,800)]));
+    claw.classList.add("open");await S(crane(x,PARK,x,30,280));claw.classList.remove("open");await S(sleep(40));
+    await S(Promise.all([mv(box,D,UP,340),crane(x,30,x,PARK,340)]));
     
     targets[i]=null;w._t=null;w.innerHTML="";
     const nt=queue.length?{cat:queue.shift(),it:[],n:0,p:0}:null;
     if(nt){w.innerHTML=boxHTML(nt);const nb=w.firstChild,A=UP;nb.style.transform=A;
       
-      await S(Promise.all([mv(nb,A,D,800),crane(x,PARK,x,30,800)]));
-      claw.classList.add("open");await S(sleep(160));await S(crane(x,30,x,PARK,650));nb.style.transform="";
+      await S(Promise.all([mv(nb,A,D,340),crane(x,PARK,x,30,340)]));
+      claw.classList.add("open");await S(sleep(40));await S(crane(x,30,x,PARK,260));nb.style.transform="";
     }
     targets[i]=nt;w._t=nt;w._busy=false;w.style.zIndex="";pull();render();
   }}catch(e){return}
